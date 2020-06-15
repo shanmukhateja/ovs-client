@@ -1,6 +1,7 @@
 {
   "name": "client",
-  "version": "0.0.0",
+  "description": "OVS Dashboard",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -19,6 +20,8 @@
     "@angular/platform-browser": "~9.1.11",
     "@angular/platform-browser-dynamic": "~9.1.11",
     "@angular/router": "~9.1.11",
+    "bootstrap": "4.1.1",
+    "ngx-bootstrap": "^5.6.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
