@@ -30,8 +30,9 @@
                 <div class="text-danger" *ngIf="password?.errors?.minlength && !formGroup?.untouched">Password should be atleast 8 characters long.</div>
               </div>
             </div>
+            <div id="status" class="text-warning">{{loginStatus}}</div>
             <!-- Submit -->
-            <button type="submit" [disabled]="!formGroup?.valid" class="btn btn-primary">Submit</button>
+            <button type="submit" [disabled]="!formGroup?.valid" (click)="processLogin()" class="btn btn-primary">Submit</button>
           </form>
         </div>
       </div>
