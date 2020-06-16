@@ -6,17 +6,27 @@ import { DashboardGlueComponent } from './components/dashboard-glue/dashboard-gl
 import { CollapseModule } from 'ngx-bootstrap/collapse'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ManagePostsComponent } from './components/manage-posts/manage-posts.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { AddPostComponent } from './components/add-post/add-post.component'
+import { TooltipModule } from 'ngx-bootstrap/tooltip'
+import { SharedModule } from '../shared/shared.module';
+import { ModalModule } from 'ngx-bootstrap/modal'
 
 
 @NgModule({
-  declarations: [ManageTopicsComponent, DashboardGlueComponent],
+  declarations: [ManageTopicsComponent, DashboardGlueComponent, ManagePostsComponent, AddPostComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     CollapseModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    TabsModule.forRoot(),
+    TooltipModule.forRoot(),
+    SharedModule,
+    ModalModule.forRoot()
   ]
 })
 export class DashboardModule { }

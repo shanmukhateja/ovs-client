@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card-header">
+    Add Post
+    <button type="button" (click)="handleModalClose($event)" class="close">
+      <span aria-hidden="true">×</span>
+      <span class="sr-only">Close</span>
+    </button>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="formGroup">
+      <div class="form-group">
+        <label for="selectTopic">Select Topic</label>
+        <select id="selectTopic" class="form-control" formControlName="topic_id">
+          <option value="-1" selected>--</option>
+          <option [value]="item.id" *ngFor="let item of topicsList">{{item.title}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="postTitle">Enter Title:</label>
+        <input class="form-control" type="text" formControlName="post_title" id="postTitle">
+      </div>
+      <div class="form-group">
+        <label for="postDescr">Enter Description:</label>
+        <input class="form-control" type="text" formControlName="post_descr" id="postDescr">
+      </div>
+    </form>
+    <div class="form-group"></div>
+  </div>
+</div>

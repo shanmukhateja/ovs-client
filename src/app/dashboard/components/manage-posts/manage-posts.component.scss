@@ -1,0 +1,19 @@
+#date {
+  line-height: 2.0;
+}
+
+#title {
+  color: #1312128c;
+}
+
+.upvote-icon, .downvote-icon {
+  cursor: pointer;
+}
+
+.upvote-icon:hover {
+  color: red !important;
+}
+
+.downvote-icon:hover {
+  color: blue !important;
+}

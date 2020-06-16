@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ILoginResponse } from 'src/app/shared/models/login-response';
 import { getBaseURL } from 'src/server-config';
+import { User } from 'src/app/shared/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,9 @@ export class LandingService {
 
   saveUserDetails(userData) {
     localStorage.setItem('userData', JSON.stringify(userData))
+  }
+
+  getUserDetails() {
+    return <User>JSON.parse(localStorage.getItem('userData'))
   }
 }

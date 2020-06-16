@@ -1,0 +1,56 @@
+<div class="card" *ngIf="postsList.length == 0">
+  <div class="card-body">
+    <div class="text-dark">{{formStatus}}</div>
+  </div>
+</div>
+
+<div class="row col-md-8 mx-auto px-0">
+  <!-- add post (for Admins only) -->
+  <div class="col-4 mr-auto p-0" *ngIf="userAccountType == userAccountTypes.admin">
+    <button class="btn btn-primary" (click)="openAddPostModal()">Add Post</button>
+  </div>
+  <!-- Search -->
+  <div class="col-4 p-0">
+    <input class="form-control" type="text" autofocus placeholder="Search">
+  </div>
+</div>
+
+<!-- Posts cards -->
+<div *ngIf="postsList.length > 0">
+  <div class="card col-md-8 mx-auto px-0 my-3" *ngFor="let item of postsList">
+    <div class="card-body">
+      <div class="row">
+        <!-- upvote/downvote & score holder -->
+        <div class="score-row" class="col-2">
+          <a class="upvote-icon mx-1 my-1" (click)="handleUpvote(item.id)"><i class="fa fa-arrow-up"></i></a>
+          <span class="mx-2">{{item.post_counter}}</span>
+          <a class="downvote-icon mx-1 my-1" (click)="handleDownvote(item.id)"><i class="fa fa-arrow-down"></i></a>
+        </div>
+        <!-- title -->
+        <div id="title" class="col-6">
+          <h4>{{item.title}}</h4>
+        </div>
+        <!-- date -->
+        <div id="date" class="col-4 text-right">
+          <small [tooltip]="item.created_at | date: 'medium'">{{item.created_at | relativeTime }}</small>
+        </div>
+        <!-- descr -->
+        <div id="descr" class="col-12">
+          <p>{{item.description}}</p>
+        </div>
+
+        <!-- admin-actions -->
+        <div class="col-md-10 col-9" *ngIf="userAccountType == userAccountTypes.admin">
+          <button class="btn btn-outline-info">View Responses</button>
+        </div>
+        <div class="col-2 text-right" *ngIf="userAccountType == userAccountTypes.admin">
+          <button class="btn btn-outline-danger" tooltip="Delete Post"><i class="fa fa-trash"></i></button>
+        </div>
+      </div>
+    </div>
+    <!-- user info -->
+    <div class="small ml-auto mr-3">
+      Posted by {{item.user_id['name']}}
+    </div>
+  </div>
+</div>

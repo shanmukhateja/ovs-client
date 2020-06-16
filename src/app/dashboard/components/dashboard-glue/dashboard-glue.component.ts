@@ -10,9 +10,7 @@ export class DashboardGlueComponent implements OnInit {
 
   constructor(
     public router: Router
-  ) {
-    console.log(router.url.toString())
-   }
+  ) { }
 
   @ViewChild('pageWrapper')
   pageWrapper: ElementRef<HTMLDivElement>
