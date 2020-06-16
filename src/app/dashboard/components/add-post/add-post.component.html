@@ -23,7 +23,9 @@
         <label for="postDescr">Enter Description:</label>
         <input class="form-control" type="text" formControlName="post_descr" id="postDescr">
       </div>
+      <!-- status msgs -->
+      <div class="my-2 text-warning" *ngIf="formStatus.length > 0">{{formStatus}}</div>
+      <input class="btn btn-success" type="submit" value="Submit" (click)="handleProcessRequest()">
     </form>
-    <div class="form-group"></div>
   </div>
 </div>

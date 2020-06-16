@@ -30,17 +30,21 @@ export class ManagePostsComponent implements OnInit {
   userAccountTypes = UserAccountTypes
 
   ngOnInit(): void {
+    // fetch all posts
+    this.fetchAllPosts()
+  }
+
+  fetchAllPosts() {
     this.postS.getAllPosts()
-      .subscribe(resp => {
-        const { status, data } = resp
-        if (status == StatusTypes.okay) {
-          // clear old data
-          this.postsList.splice(0, this.postsList.length)
-          // add new data
-          data.forEach(el => this.postsList.push(el))
-          console.log(data)
-        }
-      })
+    .subscribe(resp => {
+      const { status, data } = resp
+      if (status == StatusTypes.okay) {
+        // clear old data
+        this.postsList.splice(0, this.postsList.length)
+        // add new data
+        data.forEach(el => this.postsList.push(el))
+      }
+    })
   }
 
   openAddPostModal() {
@@ -52,6 +56,8 @@ export class ManagePostsComponent implements OnInit {
     (this.bsModalRef.content as AddPostComponent).modalCloseEvent.subscribe(_ => {
       this.bsModalRef.hide()
       this.bsModalRef = null
+      // refresh list
+      this.fetchAllPosts()
     })
   }
 
