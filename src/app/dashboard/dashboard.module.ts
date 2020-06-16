@@ -4,6 +4,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ManageTopicsComponent } from './components/manage-topics/manage-topics.component';
 import { DashboardGlueComponent } from './components/dashboard-glue/dashboard-glue.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -11,7 +13,10 @@ import { CollapseModule } from 'ngx-bootstrap/collapse'
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ]
 })
 export class DashboardModule { }

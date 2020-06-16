@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ILoginResponse } from 'src/app/shared/models/login-response';
-import { Observable } from 'rxjs';
+import { getBaseURL } from 'src/server-config';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +12,10 @@ export class LandingService {
     private http: HttpClient
   ) { }
 
-  private BASE_URL = 'http://localhost:4600'
+  private BASE_URL = getBaseURL()
 
   processUserLogin(userName: string, password: string) {
-    return <Observable<ILoginResponse>>this.http.post(`${this.BASE_URL}/users/login`, {
+    return this.http.post<ILoginResponse>(`${this.BASE_URL}/users/login`, {
       userName,
       password
     })
