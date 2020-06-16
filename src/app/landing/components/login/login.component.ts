@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LandingService } from '../../services/landing.service';
+import { Router } from '@angular/router';
+import { StatusTypes } from 'src/app/shared/models/status-types';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,8 @@ import { LandingService } from '../../services/landing.service';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private landingS: LandingService
+    private landingS: LandingService,
+    private router: Router
   ) { }
 
   formGroup: FormGroup = null
@@ -40,8 +43,12 @@ export class LoginComponent implements OnInit {
           // reset status
           this.loginStatus = ''
           const { status } = resp
-          if(status == 'OKAY') {
+          if(status == StatusTypes.okay) {
             this.loginStatus = 'Redirecting...'
+            // Save user info
+            this.landingS.saveUserDetails(resp.data)
+            // Goto dashboard
+            this.router.navigateByUrl('/dashboard/manage-topics')
           } else {
             this.loginStatus = 'Internal error.'
           }
