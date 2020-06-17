@@ -14,4 +14,6 @@ export interface Post {
   post_counter: number
 
   created_at: Date
+
+  user_post_score?: number
 }

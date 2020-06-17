@@ -36,15 +36,15 @@ export class ManagePostsComponent implements OnInit {
 
   fetchAllPosts() {
     this.postS.getAllPosts()
-    .subscribe(resp => {
-      const { status, data } = resp
-      if (status == StatusTypes.okay) {
-        // clear old data
-        this.postsList.splice(0, this.postsList.length)
-        // add new data
-        data.forEach(el => this.postsList.push(el))
-      }
-    })
+      .subscribe(resp => {
+        const { status, data } = resp
+        if (status == StatusTypes.okay) {
+          // clear old data
+          this.postsList.splice(0, this.postsList.length)
+          // add new data
+          data.forEach(el => this.postsList.push(el))
+        }
+      })
   }
 
   openAddPostModal() {
@@ -61,24 +61,52 @@ export class ManagePostsComponent implements OnInit {
     })
   }
 
-  handleUpvote(event: MouseEvent, post_id) {
-    const el = event
-    console.log(el)
-    this.postS.handlePostScore(post_id, true)
-    .subscribe(
-      resp => {
-        this.fetchAllPosts()
-      }
-    )
+  handleUpvote(post_id) {
+    // update UI
+    const scoreRowRef = document.getElementById(`score-row-${post_id}`)
+    this.postS.handlePostScore(post_id, 'true')
+      .subscribe(
+        resp => {
+          const { status } = resp
+          if (status == StatusTypes.okay) {
+            this.handlePostUI(scoreRowRef, 'up', 'down')
+            this.fetchAllPosts()
+          } else {
+            alert('Internal error.')
+          }
+        },
+        err => {
+          console.error(err)
+          alert('Something went wrong')
+        }
+      )
   }
 
-  handleDownvote(event, post_id) {
-    this.postS.handlePostScore(post_id, false)
-    .subscribe(
-      resp => {
-        this.fetchAllPosts()
-      }
-    )
+  handleDownvote(post_id) {
+    const scoreRowRef = document.getElementById(`score-row-${post_id}`)
+    this.postS.handlePostScore(post_id, 'false')
+      .subscribe(
+        resp => {
+          const { status } = resp
+          if (status == StatusTypes.okay) {
+            this.handlePostUI(scoreRowRef, 'down', 'up')
+            this.fetchAllPosts()
+          } else {
+            alert('Internal error.')
+          }
+        },
+        err => {
+          console.error(err)
+          alert('Something went wrong')
+        }
+      )
+  }
+
+  handlePostUI(scoreRowRef: HTMLElement, key: string, rivalKey: string) {
+    if (scoreRowRef.classList.contains(rivalKey)) {
+      scoreRowRef.classList.remove(rivalKey)
+    }
+    scoreRowRef.classList.add(key)
   }
 
 }

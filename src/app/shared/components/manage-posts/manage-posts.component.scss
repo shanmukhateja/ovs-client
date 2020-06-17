@@ -10,10 +10,26 @@
   cursor: pointer;
 }
 
-.upvote-icon:hover {
+%hover-upvote {
   color: red !important;
 }
 
-.downvote-icon:hover {
+%hover-downvote {
   color: blue !important;
+}
+
+.upvote-icon:hover {
+  @extend %hover-upvote
+}
+
+.downvote-icon:hover {
+  @extend %hover-downvote
+}
+
+.up {
+  @extend %hover-upvote
+}
+
+.down {
+  @extend %hover-downvote
 }

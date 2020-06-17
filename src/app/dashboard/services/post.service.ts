@@ -19,7 +19,10 @@ export class PostService {
   private BASE_URL = getBaseURL()
 
   getAllPosts() {
-    return this.http.get<IGetPosts>(`${this.BASE_URL}/posts`)
+    const user_id = this.landingS.getUserDetails()?.id.toString()
+    return this.http.get<IGetPosts>(`${this.BASE_URL}/posts`, {
+      params: { user_id }
+    })
   }
 
   handleAddPost(post: Post) {

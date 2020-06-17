@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<div class="row col-md-8 mx-auto px-0">
+<div class="row col-md-8 mx-auto my-2 px-0">
   <!-- add post (for Admins only) -->
   <div class="col-4 mr-auto p-0" *ngIf="userAccountType == userAccountTypes.admin">
     <button class="btn btn-primary" (click)="openAddPostModal()">Add Post</button>
@@ -21,10 +21,12 @@
     <div class="card-body">
       <div class="row">
         <!-- upvote/downvote & score holder -->
-        <div class="score-row" class="col-2">
-          <a *ngIf="userAccountType == userAccountTypes.user" class="upvote-icon mx-1 my-1" [attr.data-postId]="item.id" (click)="handleUpvote($event, item.id)"><i class="fa fa-arrow-up"></i></a>
+        <div class="score-row" class="col-2" [id]="'score-row-'+item.id">
+          <a *ngIf="userAccountType == userAccountTypes.user" class="upvote-icon mx-1 my-1"
+           [class.up]="item.user_post_score != undefined && item.user_post_score == 1" (click)="handleUpvote(item.id)"><i class="fa fa-arrow-up"></i></a>
           <span class="mx-2">{{item.post_counter}}</span>
-          <a *ngIf="userAccountType == userAccountTypes.user" class="downvote-icon mx-1 my-1" [attr.data-postId]="item.id" (click)="handleDownvote($event, item.id)"><i class="fa fa-arrow-down"></i></a>
+          <a *ngIf="userAccountType == userAccountTypes.user" class="downvote-icon mx-1 my-1"
+          [class.down]="item.user_post_score != undefined && item.user_post_score == -1" (click)="handleDownvote(item.id)"><i class="fa fa-arrow-down"></i></a>
         </div>
         <!-- title -->
         <div id="title" class="col-6">
