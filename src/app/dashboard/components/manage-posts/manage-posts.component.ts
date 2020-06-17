@@ -61,12 +61,16 @@ export class ManagePostsComponent implements OnInit {
     })
   }
 
-  handleUpvote(post_id) {
-
+  handleUpvote(event: MouseEvent, post_id) {
+    const el = event
+    console.log(el)
+    this.postS.handlePostScore(post_id, true)
+    .subscribe()
   }
 
-  handleDownvote(post_id) {
-
+  handleDownvote(event, post_id) {
+    this.postS.handlePostScore(post_id, false)
+    .subscribe()
   }
 
 }

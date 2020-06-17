@@ -22,9 +22,9 @@
       <div class="row">
         <!-- upvote/downvote & score holder -->
         <div class="score-row" class="col-2">
-          <a class="upvote-icon mx-1 my-1" (click)="handleUpvote(item.id)"><i class="fa fa-arrow-up"></i></a>
+          <a class="upvote-icon mx-1 my-1" [attr.data-postId]="item.id" (click)="handleUpvote($event, item.id)"><i class="fa fa-arrow-up"></i></a>
           <span class="mx-2">{{item.post_counter}}</span>
-          <a class="downvote-icon mx-1 my-1" (click)="handleDownvote(item.id)"><i class="fa fa-arrow-down"></i></a>
+          <a class="downvote-icon mx-1 my-1" [attr.data-postId]="item.id" (click)="handleDownvote($event, item.id)"><i class="fa fa-arrow-down"></i></a>
         </div>
         <!-- title -->
         <div id="title" class="col-6">
