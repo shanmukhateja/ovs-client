@@ -4,6 +4,7 @@ import { StatusTypes } from './status-types';
 export interface ILoginResponse {
 
   status: StatusTypes,
-  data: User
+  data: User,
+  error?: string
 }
 

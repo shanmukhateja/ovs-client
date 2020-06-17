@@ -37,6 +37,8 @@ export class LoginComponent implements OnInit {
   processLogin() {
     const userName = this.userName.value
     const password = this.password.value
+    // reset UI
+    this.loginStatus = ''
     this.landingS.processUserLogin(userName, password)
       .subscribe(
         resp => {
@@ -57,7 +59,7 @@ export class LoginComponent implements OnInit {
             }
 
           } else {
-            this.loginStatus = 'Internal error.'
+            this.loginStatus = resp.error
           }
          },
         err => {
