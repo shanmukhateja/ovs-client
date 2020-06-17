@@ -29,4 +29,8 @@ export class LandingService {
   getUserDetails() {
     return <User>JSON.parse(localStorage.getItem('userData'))
   }
+
+  clearUserDetails() {
+    localStorage.clear()
+  }
 }
