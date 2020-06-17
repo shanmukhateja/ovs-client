@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ManageTopicsComponent } from './components/manage-topics/manage-topics.component';
 import { DashboardGlueComponent } from './components/dashboard-glue/dashboard-glue.component';
-import { ManagePostsComponent } from './components/manage-posts/manage-posts.component';
+import { PostsUiComponent } from './components/posts-ui/posts-ui.component';
 
 
 const routes: Routes = [
@@ -16,7 +16,7 @@ const routes: Routes = [
       },
       {
         path: 'manage-posts',
-        component: ManagePostsComponent
+        component: PostsUiComponent
       }
     ]
   }

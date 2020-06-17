@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PostService } from '../../services/post.service';
 import { StatusTypes } from 'src/app/shared/models/status-types';
 import { UserAccountTypes } from 'src/app/shared/models/user-acc-types';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { AddPostComponent } from '../add-post/add-post.component';
 import { Post } from 'src/app/shared/models/post';
+import { PostService } from 'src/app/dashboard/services/post.service';
+import { AddPostComponent } from 'src/app/dashboard/components/add-post/add-post.component';
 
 @Component({
   selector: 'app-manage-posts',
@@ -65,12 +65,20 @@ export class ManagePostsComponent implements OnInit {
     const el = event
     console.log(el)
     this.postS.handlePostScore(post_id, true)
-    .subscribe()
+    .subscribe(
+      resp => {
+        this.fetchAllPosts()
+      }
+    )
   }
 
   handleDownvote(event, post_id) {
     this.postS.handlePostScore(post_id, false)
-    .subscribe()
+    .subscribe(
+      resp => {
+        this.fetchAllPosts()
+      }
+    )
   }
 
 }

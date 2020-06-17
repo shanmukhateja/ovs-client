@@ -47,8 +47,15 @@ export class LoginComponent implements OnInit {
             this.loginStatus = 'Redirecting...'
             // Save user info
             this.landingS.saveUserDetails(resp.data)
-            // Goto dashboard
-            this.router.navigateByUrl('/dashboard/manage-topics')
+
+            if(resp.data.user_type == 0) {
+              // admin login
+              this.router.navigateByUrl('/dashboard/manage-topics')
+            } else if(resp?.data?.user_type == 1) {
+              // user login
+              this.router.navigateByUrl('/user-home/home')
+            }
+
           } else {
             this.loginStatus = 'Internal error.'
           }

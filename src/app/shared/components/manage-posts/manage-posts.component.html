@@ -10,7 +10,7 @@
     <button class="btn btn-primary" (click)="openAddPostModal()">Add Post</button>
   </div>
   <!-- Search -->
-  <div class="col-4 p-0">
+  <div class="col-4 p-0 ml-auto">
     <input class="form-control" type="text" autofocus placeholder="Search">
   </div>
 </div>
@@ -22,9 +22,9 @@
       <div class="row">
         <!-- upvote/downvote & score holder -->
         <div class="score-row" class="col-2">
-          <a class="upvote-icon mx-1 my-1" [attr.data-postId]="item.id" (click)="handleUpvote($event, item.id)"><i class="fa fa-arrow-up"></i></a>
+          <a *ngIf="userAccountType == userAccountTypes.user" class="upvote-icon mx-1 my-1" [attr.data-postId]="item.id" (click)="handleUpvote($event, item.id)"><i class="fa fa-arrow-up"></i></a>
           <span class="mx-2">{{item.post_counter}}</span>
-          <a class="downvote-icon mx-1 my-1" [attr.data-postId]="item.id" (click)="handleDownvote($event, item.id)"><i class="fa fa-arrow-down"></i></a>
+          <a *ngIf="userAccountType == userAccountTypes.user" class="downvote-icon mx-1 my-1" [attr.data-postId]="item.id" (click)="handleDownvote($event, item.id)"><i class="fa fa-arrow-down"></i></a>
         </div>
         <!-- title -->
         <div id="title" class="col-6">

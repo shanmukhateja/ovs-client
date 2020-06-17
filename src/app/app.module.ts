@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LandingModule } from './landing/landing.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { UserHomeModule } from './user-home/user-home.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     LandingModule,
-    DashboardModule
+    DashboardModule,
+    UserHomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
