@@ -43,7 +43,8 @@
   </div>
   <!-- Know more about Search Syntax -->
   <small class="col-12 text-right pr-0 ml-auto">
-    Click <a class="text-primary cursor-pointer" href="#" (click)="openSearchHintModal($event)">here</a> to know more about search syntax.
+    Click <a class="text-primary cursor-pointer" href="#" (click)="openSearchHintModal($event)">here</a> to know more
+    about search syntax.
   </small>
 </div>
 
@@ -90,9 +91,15 @@
         </div>
       </div>
     </div>
-    <!-- user info -->
-    <div class="small ml-auto mr-3">
-      {{item.user_id | postedByUser }}
+    <div class="row">
+      <!-- topic info -->
+      <div class="col-3 small mr-auto ml-3">
+        <b class="mr-1">Topic:</b>{{item.topic_id['title']}}
+      </div>
+      <!-- user info -->
+      <div class="col-3 small ml-auto mr-3 text-right">
+        {{item.user_id | postedByUser }}
+      </div>
     </div>
   </div>
 </div>
