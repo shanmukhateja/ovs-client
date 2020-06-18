@@ -8,6 +8,7 @@ import { AddPostComponent } from 'src/app/dashboard/components/add-post/add-post
 import { ISortInfo, SortOrder, SortTypes } from '../../models/sort-info';
 import { fromEvent } from 'rxjs';
 import { map, debounceTime, tap } from 'rxjs/operators';
+import { SearchHintModalComponent } from '../search-hint-modal/search-hint-modal.component';
 
 @Component({
   selector: 'app-manage-posts',
@@ -118,6 +119,19 @@ export class ManagePostsComponent implements OnInit, AfterViewInit {
       this.bsModalRef = null
       // refresh list
       this.fetchAllPosts()
+    })
+  }
+
+  openSearchHintModal(event) {
+    event.preventDefault()
+    this.bsModalRef = this.modalS.show(SearchHintModalComponent, {
+      backdrop: true,
+      keyboard: true
+    });
+    // close modal event
+    (this.bsModalRef.content as SearchHintModalComponent).modalCloseEvent.subscribe(_ => {
+      this.bsModalRef.hide()
+      this.bsModalRef = null
     })
   }
 

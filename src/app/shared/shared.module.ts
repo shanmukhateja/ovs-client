@@ -7,9 +7,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { PostedByUserPipe } from './pipes/posted-by-user.pipe';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchHintModalComponent } from './components/search-hint-modal/search-hint-modal.component';
 
 @NgModule({
-  declarations: [RelativeTimePipe, ManagePostsComponent, NavbarComponent, PostedByUserPipe],
+  declarations: [RelativeTimePipe, ManagePostsComponent, NavbarComponent, PostedByUserPipe, SearchHintModalComponent],
   imports: [
     CommonModule,
     TooltipModule.forRoot(),

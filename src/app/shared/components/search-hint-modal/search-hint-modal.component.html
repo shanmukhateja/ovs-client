@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card-header">
+    Search Help
+    <button type="button" class="close pull-right" (click)="handleCloseEvent()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<div class="card-body">
+  <ol>
+    <li><b>Search by Name:</b>
+      <p>You can type a user's full or partial name and the results will propagate accordingly</p>
+    </li>
+    <li><b>Search by Post/Topic Title:</b>
+      <p>You can type a topic/post title into search field and the results will propagate accordingly</p>
+    </li>
+    <li><b>Search by creation date:</b>
+      <p>You will need to use the following syntax to get proper results for date based search.
+      <ol style="list-style: circle">
+        <li>
+          <p><b>Date only:</b> Please enter your date in the format <b>DD-MM-YYYY</b> like <u>18-06-2020</u> for 18<sup>th</sup> June 2020.</p>
+        </li>
+        <li>
+          <p><b>Date with Time:</b> Please enter your date in 24-hours format <b>DD-MM-YYYY HH:mm</b> like <u>18-06-2020 20:28</u> for 18<sup>th</sup> June 2020, 08:28PM.</p>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</div>
