@@ -9,9 +9,43 @@
   <div class="col-4 mr-auto p-0" *ngIf="userAccountType == userAccountTypes.admin">
     <button class="btn btn-primary" (click)="openAddPostModal()">Add Post</button>
   </div>
-  <!-- Search -->
-  <div class="col-4 p-0 ml-auto">
-    <input class="form-control" type="text" autofocus placeholder="Search">
+  <!-- right -->
+  <div class="col-md-4 ml-auto text-right pr-0">
+    <!-- Sort -->
+    <div class="btn-group" dropdown>
+      <button id="button-basic" dropdownToggle type="button" class="btn btn-outline-info dropdown-toggle mr-2"
+        aria-controls="dropdown-basic">
+        Sort <span class="caret"></span>
+      </button>
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu pb-0" #dropdownMenu (click)="$event.stopPropagation()" role="menu"
+        aria-labelledby="button-basic">
+        <li role="menuitem">
+          <span class="px-2">Order:</span>
+          <div class="btn-toolbar">
+            <!-- sort order -->
+            <div class="text-info">
+              <span class="mx-2 btn btn-outline-info" [class.active]="sortObj.order == sortOrders.asc"
+                (click)="sortObj.order = sortOrders.asc">ASC</span></div>
+            <div class="text-info">
+              <span class="mx-2 btn btn-outline-info" [class.active]="sortObj.order == sortOrders.desc"
+                (click)="sortObj.order = sortOrders.desc">DESC</span></div>
+          </div>
+        </li>
+        <li class="divider dropdown-divider"></li>
+        <li role="menuitem" [class.active]="sortObj.type == sortTypes.post_title" ngDefaultControl
+          [(ngModel)]="sortObj.type"><a class="dropdown-item">Post Title</a></li>
+        <li role="menuitem" [class.active]="sortObj.type == sortTypes.topic_title" ngDefaultControl
+          [(ngModel)]="sortObj.type"><a class="dropdown-item">Topic Title</a></li>
+        <li role="menuitem" [class.active]="sortObj.type == sortTypes.post_created_at" ngDefaultControl
+          [(ngModel)]="sortObj.type"><a class="dropdown-item">Post Creation Date</a></li>
+        <li role="menuitem" [class.active]="sortObj.type == sortTypes.user_name" ngDefaultControl
+          [(ngModel)]="sortObj.type"><a class="dropdown-item">Posted By</a>
+        </li>
+        <li class="btn btn-primary col-12" (click)="fetchAllPosts()">Apply</li>
+      </ul>
+      <!-- Search -->
+      <input class="ml-auto form-control" type="text" autofocus placeholder="Search">
+    </div>
   </div>
 </div>
 
@@ -23,10 +57,12 @@
         <!-- upvote/downvote & score holder -->
         <div class="score-row" class="col-2" [id]="'score-row-'+item.id">
           <a *ngIf="userAccountType == userAccountTypes.user" class="upvote-icon mx-1 my-1"
-           [class.up]="item.user_post_score != undefined && item.user_post_score == 1" (click)="handleUpvote(item.id)"><i class="fa fa-arrow-up"></i></a>
+            [class.up]="item.user_post_score != undefined && item.user_post_score == 1"
+            (click)="handleUpvote(item.id)"><i class="fa fa-arrow-up"></i></a>
           <span class="mx-2">{{item.post_counter}}</span>
           <a *ngIf="userAccountType == userAccountTypes.user" class="downvote-icon mx-1 my-1"
-          [class.down]="item.user_post_score != undefined && item.user_post_score == -1" (click)="handleDownvote(item.id)"><i class="fa fa-arrow-down"></i></a>
+            [class.down]="item.user_post_score != undefined && item.user_post_score == -1"
+            (click)="handleDownvote(item.id)"><i class="fa fa-arrow-down"></i></a>
         </div>
         <!-- title -->
         <div id="title" class="col-6">

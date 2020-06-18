@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { StatusTypes } from 'src/app/shared/models/status-types';
 import { UserAccountTypes } from 'src/app/shared/models/user-acc-types';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Post } from 'src/app/shared/models/post';
 import { PostService } from 'src/app/dashboard/services/post.service';
 import { AddPostComponent } from 'src/app/dashboard/components/add-post/add-post.component';
+import { ISortInfo, SortOrder, SortTypes } from '../../models/sort-info';
 
 @Component({
   selector: 'app-manage-posts',
@@ -29,13 +30,24 @@ export class ManagePostsComponent implements OnInit {
 
   userAccountTypes = UserAccountTypes
 
+  sortObj: ISortInfo = {
+    order: SortOrder.desc,
+    type: SortTypes.post_created_at
+  }
+
+  sortOrders = SortOrder
+  sortTypes = SortTypes
+
+  @ViewChild('dropdownMenu')
+  dropdownMenu: ElementRef<HTMLUListElement>
+
   ngOnInit(): void {
     // fetch all posts
     this.fetchAllPosts()
   }
 
   fetchAllPosts() {
-    this.postS.getAllPosts()
+    this.postS.getAllPosts(this.sortObj)
       .subscribe(resp => {
         const { status, data } = resp
         if (status == StatusTypes.okay) {
@@ -102,6 +114,9 @@ export class ManagePostsComponent implements OnInit {
       )
   }
 
+  /**
+   * Handles post upvote/downvote UI status
+   */
   handlePostUI(scoreRowRef: HTMLElement, key: string, rivalKey: string) {
     if (scoreRowRef.classList.contains(rivalKey)) {
       scoreRowRef.classList.remove(rivalKey)

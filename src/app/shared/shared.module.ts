@@ -5,13 +5,17 @@ import { ManagePostsComponent } from './components/manage-posts/manage-posts.com
 import { TooltipModule } from 'ngx-bootstrap/tooltip'
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PostedByUserPipe } from './pipes/posted-by-user.pipe';
-
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [RelativeTimePipe, ManagePostsComponent, NavbarComponent, PostedByUserPipe],
   imports: [
     CommonModule,
     TooltipModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [RelativeTimePipe, ManagePostsComponent, NavbarComponent]
 })

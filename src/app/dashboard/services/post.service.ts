@@ -5,6 +5,7 @@ import { IGetPosts } from 'src/app/shared/models/get-post-response';
 import { Post } from 'src/app/shared/models/post';
 import { DefaultResponse } from 'src/app/shared/models/default-response';
 import { LandingService } from 'src/app/landing/services/landing.service';
+import { ISortInfo } from 'src/app/shared/models/sort-info';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +19,11 @@ export class PostService {
 
   private BASE_URL = getBaseURL()
 
-  getAllPosts() {
+  getAllPosts(sortObj: ISortInfo) {
     const user_id = this.landingS.getUserDetails()?.id.toString()
-    return this.http.get<IGetPosts>(`${this.BASE_URL}/posts`, {
-      params: { user_id }
+    return this.http.post<IGetPosts>(`${this.BASE_URL}/posts`, {
+      user_id,
+      sort_data: sortObj
     })
   }
 
@@ -41,5 +43,9 @@ export class PostService {
       user_id,
       post_score
     })
+  }
+
+  handlePostSort(sortObj: ISortInfo) {
+    return this.http.post(`${this.BASE_URL}/posts/sort`, {sort_data: sortObj})
   }
 }

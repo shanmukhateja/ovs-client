@@ -33,3 +33,17 @@
 .down {
   @extend %hover-downvote
 }
+
+li {
+  cursor: pointer;
+}
+
+li.active {
+  color:white !important;
+  background-color: blue !important;
+}
+
+li:hover {
+  color:blue !important;
+  background-color: white !important;
+}
