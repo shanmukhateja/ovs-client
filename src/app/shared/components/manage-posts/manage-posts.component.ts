@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { StatusTypes } from 'src/app/shared/models/status-types';
 import { UserAccountTypes } from 'src/app/shared/models/user-acc-types';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -6,18 +6,21 @@ import { Post } from 'src/app/shared/models/post';
 import { PostService } from 'src/app/dashboard/services/post.service';
 import { AddPostComponent } from 'src/app/dashboard/components/add-post/add-post.component';
 import { ISortInfo, SortOrder, SortTypes } from '../../models/sort-info';
+import { fromEvent } from 'rxjs';
+import { map, debounceTime, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-manage-posts',
   templateUrl: './manage-posts.component.html',
   styleUrls: ['./manage-posts.component.scss']
 })
-export class ManagePostsComponent implements OnInit {
+export class ManagePostsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private postS: PostService,
     private modalS: BsModalService
   ) { }
+
 
   postsList = new Array<Post>()
   formStatus = 'Loading...'
@@ -41,20 +44,65 @@ export class ManagePostsComponent implements OnInit {
   @ViewChild('dropdownMenu')
   dropdownMenu: ElementRef<HTMLUListElement>
 
+  /**
+   * ViewChild el inside *ngIf need to use `setter` model
+   * https://stackoverflow.com/a/41095677
+   */
+  @ViewChild('searchEl') set content(content: ElementRef) {
+    if(content) { // initially setter gets called with undefined
+        this.searchEl = content;
+    }
+ }
+  searchEl: ElementRef<HTMLElement>
+
+  searchText = ''
+
   ngOnInit(): void {
     // fetch all posts
     this.fetchAllPosts()
   }
 
+  ngAfterViewInit(): void {
+    // Init search
+    this.initSearchBox()
+  }
+
+  initSearchBox() {
+    const target = this.searchEl?.nativeElement
+    if(target) {
+      fromEvent(target, 'keyup')
+      .pipe(
+        map((x: any) => x.currentTarget.value),
+        debounceTime(500), // wait .5sec
+        tap(str => this.searchText=str),
+        tap(_ => this.fetchAllPosts())
+      )
+      .subscribe()
+    } else {
+      // trigger init fn every sec until necessary.
+      const i = setInterval(() => {
+        this.initSearchBox()
+        clearInterval(i)
+      }, 1000)
+    }
+  }
+
   fetchAllPosts() {
-    this.postS.getAllPosts(this.sortObj)
+    this.postS.getAllPosts(this.sortObj, this.searchText)
       .subscribe(resp => {
         const { status, data } = resp
         if (status == StatusTypes.okay) {
           // clear old data
           this.postsList.splice(0, this.postsList.length)
-          // add new data
-          data.forEach(el => this.postsList.push(el))
+          if(data.length > 0) {
+            // reset UI
+            this.formStatus = ''
+            // add new data
+            data.forEach(el => this.postsList.push(el))
+          } else {
+            // update UI
+            this.formStatus = 'No records found.'
+          }
         }
       })
   }

@@ -19,11 +19,12 @@ export class PostService {
 
   private BASE_URL = getBaseURL()
 
-  getAllPosts(sortObj: ISortInfo) {
+  getAllPosts(sortObj: ISortInfo, searchStr: string) {
     const user_id = this.landingS.getUserDetails()?.id.toString()
     return this.http.post<IGetPosts>(`${this.BASE_URL}/posts`, {
       user_id,
-      sort_data: sortObj
+      sort_data: sortObj,
+      search_value: searchStr
     })
   }
 
