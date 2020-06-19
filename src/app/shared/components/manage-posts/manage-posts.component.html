@@ -84,7 +84,7 @@
 
         <!-- admin-actions -->
         <div class="col-md-10 col-9" *ngIf="userAccountType == userAccountTypes.admin">
-          <button class="btn btn-outline-info">View Responses</button>
+          <button class="btn btn-outline-info" (click)="openViewResponsesModal(item)">View Responses</button>
         </div>
         <div class="col-2 text-right" *ngIf="userAccountType == userAccountTypes.admin">
           <button class="btn btn-outline-danger" tooltip="Delete Post"><i class="fa fa-trash"></i></button>

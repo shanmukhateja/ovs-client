@@ -10,6 +10,7 @@ import { fromEvent } from 'rxjs';
 import { map, debounceTime, tap } from 'rxjs/operators';
 import { SearchHintModalComponent } from '../search-hint-modal/search-hint-modal.component';
 import { IPaginationInfo } from '../../models/pagination-info';
+import { ViewPostResponsesComponent } from 'src/app/dashboard/components/view-post-responses/view-post-responses.component';
 
 @Component({
   selector: 'app-manage-posts',
@@ -143,6 +144,21 @@ export class ManagePostsComponent implements OnInit, AfterViewInit {
     });
     // close modal event
     (this.bsModalRef.content as SearchHintModalComponent).modalCloseEvent.subscribe(_ => {
+      this.bsModalRef.hide()
+      this.bsModalRef = null
+    })
+  }
+
+  openViewResponsesModal(postObj) {
+    this.bsModalRef = this.modalS.show(ViewPostResponsesComponent, {
+      backdrop: true,
+      keyboard: true
+    });
+    const content = this.bsModalRef.content as ViewPostResponsesComponent
+    // Set `post_id` of component and fetch data
+    content.postObjSetter = postObj;
+    // close modal event
+    content.modalCloseEvent.subscribe(_ => {
       this.bsModalRef.hide()
       this.bsModalRef = null
     })

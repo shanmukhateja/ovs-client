@@ -1,19 +1,19 @@
 import { IDefaultUserFields } from './default-user-ui';
 
 export interface Post {
-  id: number
+  id?: number
 
-  title: string
+  title?: string
 
-  description: string
+  description?: string
 
-  topic_id: string
+  topic_id?: string
 
-  user_id: string | IDefaultUserFields
+  user_id?: string | IDefaultUserFields
 
-  post_counter: number
+  post_counter?: number
 
-  created_at: Date
+  created_at?: Date
 
   user_post_score?: number
 }
