@@ -6,6 +6,7 @@ import { Post } from 'src/app/shared/models/post';
 import { DefaultResponse } from 'src/app/shared/models/default-response';
 import { LandingService } from 'src/app/landing/services/landing.service';
 import { ISortInfo } from 'src/app/shared/models/sort-info';
+import { IPaginationInfo } from 'src/app/shared/models/pagination-info';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +20,13 @@ export class PostService {
 
   private BASE_URL = getBaseURL()
 
-  getAllPosts(sortObj: ISortInfo, searchStr: string) {
+  getAllPosts(sortObj: ISortInfo, searchStr: string, pagination_info: IPaginationInfo) {
     const user_id = this.landingS.getUserDetails()?.id.toString()
     return this.http.post<IGetPosts>(`${this.BASE_URL}/posts`, {
       user_id,
       sort_data: sortObj,
-      search_value: searchStr
+      search_value: searchStr,
+      pagination_info
     })
   }
 

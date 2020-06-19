@@ -3,5 +3,6 @@ import { Post } from './post';
 
 export interface IGetPosts {
   status: StatusTypes,
-  data: Post[]
+  data: Post[],
+  rows_count: number
 }

@@ -9,6 +9,7 @@ import { ISortInfo, SortOrder, SortTypes } from '../../models/sort-info';
 import { fromEvent } from 'rxjs';
 import { map, debounceTime, tap } from 'rxjs/operators';
 import { SearchHintModalComponent } from '../search-hint-modal/search-hint-modal.component';
+import { IPaginationInfo } from '../../models/pagination-info';
 
 @Component({
   selector: 'app-manage-posts',
@@ -31,7 +32,6 @@ export class ManagePostsComponent implements OnInit, AfterViewInit {
 
   @Input('userAccountType')
   userAccountType = UserAccountTypes.admin
-
   userAccountTypes = UserAccountTypes
 
   sortObj: ISortInfo = {
@@ -50,13 +50,19 @@ export class ManagePostsComponent implements OnInit, AfterViewInit {
    * https://stackoverflow.com/a/41095677
    */
   @ViewChild('searchEl') set content(content: ElementRef) {
-    if(content) { // initially setter gets called with undefined
-        this.searchEl = content;
+    if (content) { // initially setter gets called with undefined
+      this.searchEl = content;
     }
- }
+  }
   searchEl: ElementRef<HTMLElement>
 
   searchText = ''
+
+  paginationObj = {
+    page: 1,
+    itemsPerPage: 10,
+    totalRows: 0
+  }
 
   ngOnInit(): void {
     // fetch all posts
@@ -70,15 +76,15 @@ export class ManagePostsComponent implements OnInit, AfterViewInit {
 
   initSearchBox() {
     const target = this.searchEl?.nativeElement
-    if(target) {
+    if (target) {
       fromEvent(target, 'keyup')
-      .pipe(
-        map((x: any) => x.currentTarget.value),
-        debounceTime(500), // wait .5sec
-        tap(str => this.searchText=str),
-        tap(_ => this.fetchAllPosts())
-      )
-      .subscribe()
+        .pipe(
+          map((x: any) => x.currentTarget.value),
+          debounceTime(500), // wait .5sec
+          tap(str => this.searchText = str),
+          tap(_ => this.fetchAllPosts())
+        )
+        .subscribe()
     } else {
       // trigger init fn every sec until necessary.
       const i = setInterval(() => {
@@ -89,23 +95,30 @@ export class ManagePostsComponent implements OnInit, AfterViewInit {
   }
 
   fetchAllPosts() {
-    this.postS.getAllPosts(this.sortObj, this.searchText)
+    this.postS.getAllPosts(this.sortObj, this.searchText, this.paginationObj)
       .subscribe(resp => {
-        const { status, data } = resp
+        const { status, data, rows_count } = resp
         if (status == StatusTypes.okay) {
           // clear old data
           this.postsList.splice(0, this.postsList.length)
-          if(data.length > 0) {
+          if (data.length > 0) {
             // reset UI
             this.formStatus = ''
             // add new data
             data.forEach(el => this.postsList.push(el))
+            // update total rows count
+            this.paginationObj.totalRows = rows_count
           } else {
             // update UI
             this.formStatus = 'No records found.'
           }
         }
       })
+  }
+
+  getPage(paginationInfo: IPaginationInfo) {
+    this.paginationObj.page = paginationInfo.page
+    this.fetchAllPosts()
   }
 
   openAddPostModal() {

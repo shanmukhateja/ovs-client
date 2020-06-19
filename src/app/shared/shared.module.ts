@@ -8,6 +8,7 @@ import { PostedByUserPipe } from './pipes/posted-by-user.pipe';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchHintModalComponent } from './components/search-hint-modal/search-hint-modal.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [RelativeTimePipe, ManagePostsComponent, NavbarComponent, PostedByUserPipe, SearchHintModalComponent],
@@ -16,7 +17,8 @@ import { SearchHintModalComponent } from './components/search-hint-modal/search-
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PaginationModule.forRoot()
   ],
   exports: [RelativeTimePipe, ManagePostsComponent, NavbarComponent]
 })
