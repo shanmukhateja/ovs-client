@@ -58,6 +58,10 @@ export class PostService {
   }
 
   handlePostDelete(post_id) {
-    return this.http.post<DefaultResponse>(`${this.BASE_URL}/posts`, {post_id})
+    return this.http.delete<DefaultResponse>(`${this.BASE_URL}/posts`, {
+      params: {
+        post_id
+      }
+    })
   }
 }
