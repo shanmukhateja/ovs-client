@@ -227,4 +227,8 @@ export class ManagePostsComponent implements OnInit, AfterViewInit {
     scoreRowRef.classList.add(key)
   }
 
+  updateSortType(sortType) {
+    this.sortObj.type = sortType
+  }
+
 }

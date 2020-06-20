@@ -36,14 +36,15 @@
                           </div>
                         </li>
                         <li class="divider dropdown-divider"></li>
-                        <li role="menuitem" [class.active]="sortObj.type == sortTypes.post_title" ngDefaultControl
-                          [(ngModel)]="sortObj.type"><a class="dropdown-item">Post Title</a></li>
-                        <li role="menuitem" [class.active]="sortObj.type == sortTypes.topic_title" ngDefaultControl
-                          [(ngModel)]="sortObj.type"><a class="dropdown-item">Topic Title</a></li>
-                        <li role="menuitem" [class.active]="sortObj.type == sortTypes.post_created_at" ngDefaultControl
-                          [(ngModel)]="sortObj.type"><a class="dropdown-item">Post Creation Date</a></li>
-                        <li role="menuitem" [class.active]="sortObj.type == sortTypes.user_name" ngDefaultControl
-                          [(ngModel)]="sortObj.type"><a class="dropdown-item">Posted By</a>
+                        <li role="menuitem" [class.active]="sortObj.type == sortTypes.post_title"
+                          (click)="updateSortType(sortTypes.post_title)"><a class="dropdown-item">Post Title</a></li>
+                        <li role="menuitem" [class.active]="sortObj.type == sortTypes.topic_title"
+                          (click)="updateSortType(sortTypes.topic_title)"><a class="dropdown-item">Topic Title</a></li>
+                        <li role="menuitem" [class.active]="sortObj.type == sortTypes.post_created_at"
+                          (click)="updateSortType(sortTypes.post_created_at)"><a class="dropdown-item">Post Creation
+                            Date</a></li>
+                        <li role="menuitem" [class.active]="sortObj.type == sortTypes.user_name"
+                          (click)="updateSortType(sortTypes.user_name)"><a class="dropdown-item">Posted By</a>
                         </li>
                         <li class="btn btn-primary col-12" (click)="fetchAllPosts()">Apply</li>
                       </ul>
