@@ -205,6 +205,19 @@ export class ManagePostsComponent implements OnInit, AfterViewInit {
       )
   }
 
+  handleDelete(post_id) {
+    const isConfirmed = confirm('Are you sure to delete this post? This will also delete its related post scores. This action is IRREVERSIBLE.')
+    if(isConfirmed) {
+      this.postS.handlePostDelete(post_id)
+      .subscribe(
+        _ => this.fetchAllPosts(),
+         err => {
+        console.error(err)
+        alert('Unable to delete Post')
+      })
+    }
+  }
+
   /**
    * Handles post upvote/downvote UI status
    */

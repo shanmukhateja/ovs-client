@@ -87,7 +87,7 @@
           <button class="btn btn-outline-info" (click)="openViewResponsesModal(item)">View Responses</button>
         </div>
         <div class="col-2 text-right" *ngIf="userAccountType == userAccountTypes.admin">
-          <button class="btn btn-outline-danger" tooltip="Delete Post"><i class="fa fa-trash"></i></button>
+          <button class="btn btn-outline-danger" (click)="handleDelete(item.id)" tooltip="Delete Post"><i class="fa fa-trash"></i></button>
         </div>
       </div>
     </div>

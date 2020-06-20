@@ -50,10 +50,14 @@ export class PostService {
   }
 
   handlePostSort(sortObj: ISortInfo) {
-    return this.http.post(`${this.BASE_URL}/posts/sort`, {sort_data: sortObj})
+    return this.http.post(`${this.BASE_URL}/posts/sort`, { sort_data: sortObj })
   }
 
   handleGetPostResponses(post_id) {
-    return this.http.post<IPostViewResponse>(`${this.BASE_URL}/posts/view-responses`, {post_id})
+    return this.http.post<IPostViewResponse>(`${this.BASE_URL}/posts/view-responses`, { post_id })
+  }
+
+  handlePostDelete(post_id) {
+    return this.http.post<DefaultResponse>(`${this.BASE_URL}/posts`, {post_id})
   }
 }
