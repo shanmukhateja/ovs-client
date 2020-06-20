@@ -9,11 +9,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddPostComponent } from './components/add-post/add-post.component'
 import { SharedModule } from '../shared/shared.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { PostsUiComponent } from './components/posts-ui/posts-ui.component'
+import { PostsUiComponent } from './components/posts-ui/posts-ui.component';
+import { ViewPostResponsesComponent } from './components/view-post-responses/view-post-responses.component'
 
 
 @NgModule({
-  declarations: [ManageTopicsComponent, DashboardGlueComponent, AddPostComponent, PostsUiComponent],
+  declarations: [ManageTopicsComponent, DashboardGlueComponent, AddPostComponent, PostsUiComponent, ViewPostResponsesComponent],
   imports: [
     CommonModule,
     DashboardRoutingModule,

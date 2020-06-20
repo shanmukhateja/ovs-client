@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header">
+    {{postObj?.title}}
+    <button type="button" (click)="handleModalClose()" class="close">
+      <span aria-hidden="true">×</span>
+      <span class="sr-only">Close</span>
+    </button>
+  </div>
+  <div class="card-body" *ngIf="responsesList.length == 0"><p class="text-center text-danger">{{statusText}}</p></div>
+  <div class="card-body" *ngIf="responsesList.length > 0">
+    <b>Responses:</b>
+    <!-- responses -->
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">User Name</th>
+          <th scope="col">User Vote</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of responsesList;let i=index">
+          <td>{{i+1}}</td>
+          <td>{{item.user_name}}</td>
+          <td *ngIf="item.user_score == '1'">UPVOTE</td>
+          <td *ngIf="item.user_score == '-1'">DOWNVOTE</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

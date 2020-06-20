@@ -1,123 +1,135 @@
-<div class="row col-md-8 mx-auto px-0">
-  <!-- add post (for Admins only) -->
-  <div class="col-4 mt-1 mr-auto p-0" *ngIf="userAccountType == userAccountTypes.admin">
-    <button class="btn btn-primary" (click)="openAddPostModal()">Add Post</button>
-  </div>
-  <!-- right -->
-  <div class="col-md-5 my-1 ml-auto text-right pr-0">
-    <!-- Sort -->
-    <div class="btn-group" dropdown>
-      <button *ngIf="postsList.length > 0" id="button-basic" dropdownToggle type="button"
-        class="btn btn-outline-info dropdown-toggle mr-2" aria-controls="dropdown-basic">
-        Sort <span class="caret"></span>
-      </button>
-      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu pb-0" #dropdownMenu (click)="$event.stopPropagation()"
-        role="menu" aria-labelledby="button-basic">
-        <li role="menuitem">
-          <span class="px-2">Order:</span>
-          <div class="btn-toolbar">
-            <!-- sort order -->
-            <div class="text-info">
-              <span class="mx-2 btn btn-outline-info" [class.active]="sortObj.order == sortOrders.asc"
-                (click)="sortObj.order = sortOrders.asc">ASC</span></div>
-            <div class="text-info">
-              <span class="mx-2 btn btn-outline-info" [class.active]="sortObj.order == sortOrders.desc"
-                (click)="sortObj.order = sortOrders.desc">DESC</span></div>
+<div class="container">
+  <div class="row">
+    <div class="container">
+      <div class="row my-1">
+        <div class="col-md-10 col-12 ml-3 my-1">
+          <!-- add post (for Admins only) -->
+          <div class="col-4" *ngIf="userAccountType == userAccountTypes.admin">
+            <button class="btn btn-primary" (click)="openAddPostModal()">Add Post</button>
           </div>
-        </li>
-        <li class="divider dropdown-divider"></li>
-        <li role="menuitem" [class.active]="sortObj.type == sortTypes.post_title" ngDefaultControl
-          [(ngModel)]="sortObj.type"><a class="dropdown-item">Post Title</a></li>
-        <li role="menuitem" [class.active]="sortObj.type == sortTypes.topic_title" ngDefaultControl
-          [(ngModel)]="sortObj.type"><a class="dropdown-item">Topic Title</a></li>
-        <li role="menuitem" [class.active]="sortObj.type == sortTypes.post_created_at" ngDefaultControl
-          [(ngModel)]="sortObj.type"><a class="dropdown-item">Post Creation Date</a></li>
-        <li role="menuitem" [class.active]="sortObj.type == sortTypes.user_name" ngDefaultControl
-          [(ngModel)]="sortObj.type"><a class="dropdown-item">Posted By</a>
-        </li>
-        <li class="btn btn-primary col-12" (click)="fetchAllPosts()">Apply</li>
-      </ul>
-      <!-- Search -->
-      <input class="ml-auto form-control" #searchEl type="text" autofocus placeholder="Search">
-    </div>
-  </div>
-  <!-- Know more about Search Syntax -->
-  <small class="col-12 text-right pr-0 ml-auto">
-    Click <a class="text-primary cursor-pointer" href="#" (click)="openSearchHintModal($event)">here</a> to know more
-    about search syntax.
-  </small>
-</div>
-
-<div class="card col-md-6 mx-auto" *ngIf="postsList.length == 0">
-  <div class="card-body">
-    <div class="text-dark">{{formStatus}}</div>
-  </div>
-</div>
-
-<!-- Posts cards -->
-<div *ngIf="postsList.length > 0">
-  <div class="card col-md-8 mx-auto px-0" *ngFor="let item of postsList">
-    <div class="card-body">
-      <div class="row">
-        <!-- upvote/downvote & score holder -->
-        <div class="score-row" class="col-2" [id]="'score-row-'+item.id">
-          <a *ngIf="userAccountType == userAccountTypes.user" class="upvote-icon mx-1 my-1"
-            [class.up]="item.user_post_score != undefined && item.user_post_score == 1"
-            (click)="handleUpvote(item.id)"><i class="fa fa-arrow-up"></i></a>
-          <span class="mx-2">{{item.post_counter}}</span>
-          <a *ngIf="userAccountType == userAccountTypes.user" class="downvote-icon mx-1 my-1"
-            [class.down]="item.user_post_score != undefined && item.user_post_score == -1"
-            (click)="handleDownvote(item.id)"><i class="fa fa-arrow-down"></i></a>
-        </div>
-        <!-- title -->
-        <div id="title" class="col-6">
-          <h4>{{item.title}}</h4>
-        </div>
-        <!-- date -->
-        <div id="date" class="col-4 text-right">
-          <small [tooltip]="item.created_at | date: 'medium'">{{item.created_at | relativeTime }}</small>
-        </div>
-        <!-- descr -->
-        <div id="descr" class="col-12">
-          <p>{{item.description}}</p>
-        </div>
-
-        <!-- admin-actions -->
-        <div class="col-md-10 col-9" *ngIf="userAccountType == userAccountTypes.admin">
-          <button class="btn btn-outline-info">View Responses</button>
-        </div>
-        <div class="col-2 text-right" *ngIf="userAccountType == userAccountTypes.admin">
-          <button class="btn btn-outline-danger" tooltip="Delete Post"><i class="fa fa-trash"></i></button>
+          <!-- right -->
+          <div class="col-md-5 ml-auto text-right">
+            <!-- Sort -->
+            <div class="btn-group" dropdown>
+              <button *ngIf="postsList.length > 0" id="button-basic" dropdownToggle type="button"
+                class="btn btn-outline-info dropdown-toggle mr-2" aria-controls="dropdown-basic">
+                Sort <span class="caret"></span>
+              </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu pb-0" #dropdownMenu
+                (click)="$event.stopPropagation()" role="menu" aria-labelledby="button-basic">
+                <li role="menuitem">
+                  <span class="px-2">Order:</span>
+                  <div class="btn-toolbar">
+                    <!-- sort order -->
+                    <div class="text-info">
+                      <span class="mx-2 btn btn-outline-info" [class.active]="sortObj.order == sortOrders.asc"
+                        (click)="sortObj.order = sortOrders.asc">ASC</span></div>
+                    <div class="text-info">
+                      <span class="mx-2 btn btn-outline-info" [class.active]="sortObj.order == sortOrders.desc"
+                        (click)="sortObj.order = sortOrders.desc">DESC</span></div>
+                  </div>
+                </li>
+                <li class="divider dropdown-divider"></li>
+                <li role="menuitem" [class.active]="sortObj.type == sortTypes.post_title" ngDefaultControl
+                  [(ngModel)]="sortObj.type"><a class="dropdown-item">Post Title</a></li>
+                <li role="menuitem" [class.active]="sortObj.type == sortTypes.topic_title" ngDefaultControl
+                  [(ngModel)]="sortObj.type"><a class="dropdown-item">Topic Title</a></li>
+                <li role="menuitem" [class.active]="sortObj.type == sortTypes.post_created_at" ngDefaultControl
+                  [(ngModel)]="sortObj.type"><a class="dropdown-item">Post Creation Date</a></li>
+                <li role="menuitem" [class.active]="sortObj.type == sortTypes.user_name" ngDefaultControl
+                  [(ngModel)]="sortObj.type"><a class="dropdown-item">Posted By</a>
+                </li>
+                <li class="btn btn-primary col-12" (click)="fetchAllPosts()">Apply</li>
+              </ul>
+              <!-- Search -->
+              <div class="input-group">
+                <input class="ml-auto form-control rounded-right" #searchEl type="text" autofocus placeholder="Search">
+                <!-- search hint -->
+                <div class="input-group-prepend">
+                  <span class="input-group-text text-primary" style="cursor: pointer;"
+                    (click)="openSearchHintModal()"><i class="fa fa-question-circle"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <!-- topic info -->
-      <div class="col-3 small mr-auto ml-3">
-        <b class="mr-1">Topic:</b>{{item.topic_id['title']}}
-      </div>
-      <!-- user info -->
-      <div class="col-3 small ml-auto mr-3 text-right">
-        {{item.user_id | postedByUser }}
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="mx-auto">
-        <!-- items per page -->
-        <div class="col-4">
-          <select class="form-control" [(ngModel)]="paginationObj.itemsPerPage" (change)="fetchAllPosts()">
-            <option [value]="10">10</option>
-            <option [value]="25">25</option>
-            <option [value]="50">50</option>
-            <option [value]="100">100</option>
-          </select>
+
+      <!-- Posts cards -->
+      <div class="container">
+        <div class="row" *ngIf="postsList.length > 0">
+
+          <div class="card col-md-8 mx-auto px-0" *ngFor="let item of postsList">
+            <div class="card-body">
+              <div class="row">
+                <!-- upvote/downvote & score holder -->
+                <div class="score-row" class="col-2" [id]="'score-row-'+item.id">
+                  <a *ngIf="userAccountType == userAccountTypes.user" class="upvote-icon mx-1 my-1"
+                    [class.up]="item.user_post_score != undefined && item.user_post_score == 1"
+                    (click)="handleUpvote(item.id)"><i class="fa fa-arrow-up"></i></a>
+                  <span class="mx-2">{{item.post_counter}}</span>
+                  <a *ngIf="userAccountType == userAccountTypes.user" class="downvote-icon mx-1 my-1"
+                    [class.down]="item.user_post_score != undefined && item.user_post_score == -1"
+                    (click)="handleDownvote(item.id)"><i class="fa fa-arrow-down"></i></a>
+                </div>
+                <!-- title -->
+                <div id="title" class="col-6">
+                  <h4>{{item.title}}</h4>
+                </div>
+                <!-- date -->
+                <div id="date" class="col-4 text-right">
+                  <small [tooltip]="item.created_at | date: 'medium'">{{item.created_at | relativeTime }}</small>
+                </div>
+                <!-- descr -->
+                <div id="descr" class="col-12">
+                  <p>{{item.description}}</p>
+                </div>
+
+                <!-- admin-actions -->
+                <div class="col-md-10 col-9" *ngIf="userAccountType == userAccountTypes.admin">
+                  <button class="btn btn-outline-info" (click)="openViewResponsesModal(item)">View Responses</button>
+                </div>
+                <div class="col-2 text-right" *ngIf="userAccountType == userAccountTypes.admin">
+                  <button class="btn btn-outline-danger" (click)="handleDelete(item.id)" tooltip="Delete Post"><i
+                      class="fa fa-trash"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <!-- topic info -->
+              <div class="col-3 small mr-auto ml-3">
+                <b class="mr-1">Topic:</b>{{item.topic_id['title']}}
+              </div>
+              <!-- user info -->
+              <div class="col-3 small ml-auto mr-3 text-right">
+                {{item.user_id | postedByUser }}
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- pagination -->
-        <div class="col-2">
-          <pagination class="col-4 ml-auto" *ngIf="postsList.length > 0" [itemsPerPage]="paginationObj.itemsPerPage"
-            [totalItems]="paginationObj.totalRows" (pageChanged)="getPage($event)"></pagination>
+      </div>
+
+      <div class="container" *ngIf="postsList.length > 0">
+        <div class="row">
+          <div class="container">
+            <div class="row my-2">
+              <!-- items per page -->
+              <div class="col-md-2 offset-md-2 col-4 px-0">
+                <select class="form-control" [(ngModel)]="paginationObj.itemsPerPage" (change)="fetchAllPosts()">
+                  <option [value]="10">10</option>
+                  <option [value]="25">25</option>
+                  <option [value]="50">50</option>
+                  <option [value]="100">100</option>
+                </select>
+                <small>Items per page:</small>
+              </div>
+              <!-- pagination -->
+              <div class="col-md-3 col-3 offset-2 offset-md-4 px-0 md-px-1">
+                <pagination [itemsPerPage]="paginationObj.itemsPerPage"
+                  [totalItems]="paginationObj.totalRows" (pageChanged)="getPage($event)"></pagination>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

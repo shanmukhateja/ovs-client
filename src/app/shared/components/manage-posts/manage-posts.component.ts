@@ -10,6 +10,7 @@ import { fromEvent } from 'rxjs';
 import { map, debounceTime, tap } from 'rxjs/operators';
 import { SearchHintModalComponent } from '../search-hint-modal/search-hint-modal.component';
 import { IPaginationInfo } from '../../models/pagination-info';
+import { ViewPostResponsesComponent } from 'src/app/dashboard/components/view-post-responses/view-post-responses.component';
 
 @Component({
   selector: 'app-manage-posts',
@@ -135,14 +136,28 @@ export class ManagePostsComponent implements OnInit, AfterViewInit {
     })
   }
 
-  openSearchHintModal(event) {
-    event.preventDefault()
+  openSearchHintModal() {
     this.bsModalRef = this.modalS.show(SearchHintModalComponent, {
       backdrop: true,
       keyboard: true
     });
     // close modal event
     (this.bsModalRef.content as SearchHintModalComponent).modalCloseEvent.subscribe(_ => {
+      this.bsModalRef.hide()
+      this.bsModalRef = null
+    })
+  }
+
+  openViewResponsesModal(postObj) {
+    this.bsModalRef = this.modalS.show(ViewPostResponsesComponent, {
+      backdrop: true,
+      keyboard: true
+    });
+    const content = this.bsModalRef.content as ViewPostResponsesComponent
+    // Set `post_id` of component and fetch data
+    content.postObjSetter = postObj;
+    // close modal event
+    content.modalCloseEvent.subscribe(_ => {
       this.bsModalRef.hide()
       this.bsModalRef = null
     })
@@ -187,6 +202,19 @@ export class ManagePostsComponent implements OnInit, AfterViewInit {
           alert('Something went wrong')
         }
       )
+  }
+
+  handleDelete(post_id) {
+    const isConfirmed = confirm('Are you sure to delete this post? This will also delete its related post scores. This action is IRREVERSIBLE.')
+    if(isConfirmed) {
+      this.postS.handlePostDelete(post_id)
+      .subscribe(
+        _ => this.fetchAllPosts(),
+         err => {
+        console.error(err)
+        alert('Unable to delete Post')
+      })
+    }
   }
 
   /**
