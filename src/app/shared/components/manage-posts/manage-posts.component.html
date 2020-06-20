@@ -102,4 +102,24 @@
       </div>
     </div>
   </div>
+  <div class="container">
+    <div class="row">
+      <div class="mx-auto">
+        <!-- items per page -->
+        <div class="col-4">
+          <select class="form-control" [(ngModel)]="paginationObj.itemsPerPage" (change)="fetchAllPosts()">
+            <option [value]="10">10</option>
+            <option [value]="25">25</option>
+            <option [value]="50">50</option>
+            <option [value]="100">100</option>
+          </select>
+        </div>
+        <!-- pagination -->
+        <div class="col-2">
+          <pagination class="col-4 ml-auto" *ngIf="postsList.length > 0" [itemsPerPage]="paginationObj.itemsPerPage"
+            [totalItems]="paginationObj.totalRows" (pageChanged)="getPage($event)"></pagination>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
