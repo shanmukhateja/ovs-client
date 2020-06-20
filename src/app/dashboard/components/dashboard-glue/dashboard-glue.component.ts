@@ -12,18 +12,14 @@ export class DashboardGlueComponent implements OnInit {
     public router: Router
   ) { }
 
-  @ViewChild('pageWrapper')
-  pageWrapper: ElementRef<HTMLDivElement>
+  @ViewChild('sidebar')
+  sidebar: ElementRef<HTMLElement>
 
   ngOnInit() {
   }
 
-  closeNav() {
-    this.pageWrapper.nativeElement.classList.remove('toggled')
-  }
-
-  showNav() {
-    this.pageWrapper.nativeElement.classList.add('toggled')
+  toggleNav() {
+    this.sidebar?.nativeElement.classList.toggle('active')
   }
 
 }

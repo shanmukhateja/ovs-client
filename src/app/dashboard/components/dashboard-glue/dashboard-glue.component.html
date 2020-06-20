@@ -1,41 +1,27 @@
 <app-navbar></app-navbar>
-<div class="page-wrapper chiller-theme toggled" #pageWrapper>
-  <a id="show-sidebar" (click)="showNav()" class="btn btn-sm btn-dark text-light">
-    <i class="fas fa-bars"></i>
-  </a>
-  <nav id="sidebar" class="sidebar-wrapper">
-    <div class="sidebar-content">
-      <div class="sidebar-brand">
-        <span class="text-light">General</span>
-        <div id="close-sidebar" class="ml-auto" (click)="closeNav()">
-          <i class="fas fa-times"></i>
-        </div>
-      </div>
-      <div class="sidebar-menu">
-        <ul>
-          <li class="sidebar-menu" [class.active]="router.url.toString().endsWith('manage-topics')">
-            <a routerLink="/dashboard/manage-topics">
-              <!-- <i class="fa fa-tachometer-alt"></i> -->
-              <span>Add new Topic</span>
-            </a>
-          </li>
-          <li class="sidebar-menu" [class.active]="router.url.toString().endsWith('manage-posts')">
-            <a routerLink="/dashboard/manage-posts">
-              <!-- <i class="fa fa-shopping-cart"></i> -->
-              <span>Manage Posts</span>
-              <!-- <span class="badge badge-pill badge-danger">3</span> -->
-            </a>
-          </li>
-        </ul>
-      </div>
-      <!-- sidebar-menu  -->
-    </div>
-    <!-- sidebar-content  -->
+<div class="wrapper">
+  <!-- Sidebar  -->
+  <nav id="sidebar" #sidebar>
+
+    <ul class="list-unstyled components">
+      <p>Administrator Dashboard</p>
+      <li [class.active]="router.url.toString().endsWith('manage-topics')">
+        <a routerLink="/dashboard/manage-topics">Manage Topics</a>
+      </li>
+      <li [class.active]="router.url.toString().endsWith('manage-posts')">
+        <a routerLink="/dashboard/manage-posts">Manage Posts</a>
+      </li>
+    </ul>
   </nav>
-  <!-- sidebar-wrapper  -->
-  <main class="page-content">
-    <div class="container-fluid">
-      <router-outlet></router-outlet>
-    </div>
-  </main>
-  <!-- page-content" -->
+
+  <!-- Page Content  -->
+  <div id="content">
+    <!-- sidebar toggle -->
+    <button type="button" id="sidebarCollapse" class="btn btn-info" (click)="toggleNav()">
+      <i class="fas fa-align-left"></i>
+    </button>
+    <!-- page content here -->
+    <router-outlet></router-outlet>
+
+  </div>
+</div>
