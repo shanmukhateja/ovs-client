@@ -136,8 +136,7 @@ export class ManagePostsComponent implements OnInit, AfterViewInit {
     })
   }
 
-  openSearchHintModal(event) {
-    event.preventDefault()
+  openSearchHintModal() {
     this.bsModalRef = this.modalS.show(SearchHintModalComponent, {
       backdrop: true,
       keyboard: true
