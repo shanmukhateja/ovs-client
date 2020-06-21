@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LandingService } from '../../services/landing.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { StatusTypes } from 'src/app/shared/models/status-types';
 
 @Component({
@@ -11,13 +11,19 @@ import { StatusTypes } from 'src/app/shared/models/status-types';
 })
 export class LoginComponent implements OnInit {
 
+  loginStatus = ''
+  formGroup: FormGroup = null
+
   constructor(
     private landingS: LandingService,
-    private router: Router
-  ) { }
-
-  formGroup: FormGroup = null
-  loginStatus = ''
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    const authNeeded = this.route.snapshot.queryParams['authNeeded']
+    if(authNeeded) {
+      this.loginStatus = 'Please login to continue.'
+    }
+  }
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({

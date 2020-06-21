@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { UserGuard } from '../shared/guards/user-guard.guard';
 
 
 const routes: Routes = [
   {
     path: 'user-home/home',
-    component: HomePageComponent
+    component: HomePageComponent,
+    canActivate: [UserGuard]
   }
 ];
 
