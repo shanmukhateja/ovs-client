@@ -97,7 +97,8 @@ export class ManagePostsComponent implements OnInit, AfterViewInit {
 
   fetchAllPosts() {
     this.postS.getAllPosts(this.sortObj, this.searchText, this.paginationObj)
-      .subscribe(resp => {
+      .subscribe(
+        resp => {
         const { status, data, rows_count } = resp
         if (status == StatusTypes.okay) {
           // clear old data
@@ -114,6 +115,10 @@ export class ManagePostsComponent implements OnInit, AfterViewInit {
             this.formStatus = 'No records found.'
           }
         }
+      },
+      err => {
+        console.error(err)
+        this.formStatus = 'Something went wrong.'
       })
   }
 
