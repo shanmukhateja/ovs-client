@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "server":"http-server -p 8080 dist/client"
+    "server": "http-server -p 8080 dist/client"
   },
   "private": true,
   "dependencies": {
