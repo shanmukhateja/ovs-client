@@ -18,7 +18,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Testing
 
-This project doesn't have tests as I've begun adding tests to our projects from August 2019 due to a company policy and so I didn't want to mess it up.
+This project doesn't have tests.
 
 ## PWA
 
