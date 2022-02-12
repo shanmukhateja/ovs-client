@@ -1,3 +1,7 @@
+# Notice:
+
+This project is being archived as it has served its purpose. Feel free to fork it and use it to your needs :)
+
 # About
 
 This project is built with the following tech:
